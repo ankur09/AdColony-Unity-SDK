@@ -1,3 +1,7 @@
+##Change Log (2015/06/04):
+* Updated AdColony iOS to 2.5.1
+* Updated AdColony Android to 2.2.2
+
 ##Change Log (2015/05/15):
 * Fixed an Android plug0in bug where callbacks where not being called after the video played
 
