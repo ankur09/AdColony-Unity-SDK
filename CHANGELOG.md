@@ -1,9 +1,12 @@
+##Change Log (2015/06/16):
+* Fixed an Android plugin bug where OnVideoFinished was not being called
+
 ##Change Log (2015/06/04):
 * Updated AdColony iOS to 2.5.1
 * Updated AdColony Android to 2.2.2
 
 ##Change Log (2015/05/15):
-* Fixed an Android plug0in bug where callbacks where not being called after the video played
+* Fixed an Android plugin bug where callbacks where not being called after the video played
 
 ##Change Log (2015/05/13):
 * Fixed an iOS plug-in bug in changing orientations during video playback

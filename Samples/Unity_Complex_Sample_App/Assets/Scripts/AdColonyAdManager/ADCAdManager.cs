@@ -43,6 +43,26 @@ public class ADCAdManager : MonoBehaviour {
   }
   //---------------------------------------------------------------------------
 
+  public int onVideoFinishedCounter = 0;
+  public int onVideoFinishedWithInfoCounter = 0;
+  public int onV4VCResultCounter = 0;
+  public int onAdAvailabilityChangeCounter = 0;
+
+  public int GetCounter(string counterName) {
+    switch(counterName) {
+      case "VideoFinished":
+        return onVideoFinishedCounter;
+      case "VideoFinishedWithInfo":
+        return onVideoFinishedWithInfoCounter;
+      case "V4VC":
+        return onV4VCResultCounter;
+      case "AdAvailable":
+        return onAdAvailabilityChangeCounter;
+      default:
+        return -1;
+    }
+  }
+
   // Currency tracker for the player
   public int regularCurrency = 0;
 
@@ -133,11 +153,14 @@ public class ADCAdManager : MonoBehaviour {
   }
 
   private void OnVideoFinished( bool adWasShown ) {
+    ++onVideoFinishedCounter;
+    Debug.Log("On Video Finished Counter " + onVideoFinishedCounter);
     Debug.Log("On Video Finished, and Ad was shown: " + adWasShown);
     Resume();
   }
 
   private void OnVideoFinishedWithInfo( AdColonyAd ad ) {
+    ++onVideoFinishedWithInfoCounter;
     Debug.Log("On Video Finished With Info, ad Played: " + ad.toString() );
     if(ad.iapEnabled) {
       Debug.Log("Calling Notify IAP Complete");
@@ -148,6 +171,7 @@ public class ADCAdManager : MonoBehaviour {
   }
 
   private void OnV4VCResult(bool success, string name, int amount) {
+    ++onV4VCResultCounter;
     if(success) {
       Debug.Log("V4VC SUCCESS: name = " + name + ", amount = " + amount);
       AddToCurrency(amount);
@@ -157,6 +181,7 @@ public class ADCAdManager : MonoBehaviour {
   }
 
   private void OnAdAvailabilityChange( bool avail, string zoneId) {
+    ++onAdAvailabilityChangeCounter;
     Debug.Log("Ad Availability Changed to available=" + avail + " In zone: "+ zoneId);
   }
 

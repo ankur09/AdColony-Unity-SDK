@@ -568,6 +568,8 @@ public class AdColony : MonoBehaviour
     //ad_shown | iapenabled | engagementType | iapproductid
     string[] split_args = args.Split('|');
 
+    Debug.Log("OnAdColonyVideoFinished Called");
+
     if (OnVideoFinished != null) {
       OnVideoFinished( split_args[0].Equals("true") );
     }
