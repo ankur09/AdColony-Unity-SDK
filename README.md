@@ -4,7 +4,7 @@
 * iOS SDK Version: 2.6.0
 * Android SDK Version: 2.3.0
 
-###Please Review the [Change log](AdColony-Unity-SDK/CHANGELOG.md)
+###Please Review the [Change log](CHANGELOG.md)
 
 ##Getting Started with AdColony Unity:
 First time users should review the [quick start guide](https://github.com/AdColony/AdColony-Unity-SDK/wiki).
@@ -25,7 +25,7 @@ Locate the 'Platform Settings' on the file Assets/Plugins/iOS/UnityADC in the Un
     * `UnityADC.mm`
 
 ##To Download:
-The AdColony Unity SDK Package is [Available Here for download](AdColony-Unity-SDK/Packages/adcolony.unitypackage)
+The AdColony Unity SDK Package is [Available Here for download](Packages/adcolony.unitypackage)
 
 ##To Install
 The AdColony Unity SDK Package is a standard .unitypackage that can be imported into your project.
