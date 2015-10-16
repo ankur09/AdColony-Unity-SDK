@@ -1,8 +1,10 @@
 #AdColony Unity Plugin
-* Modified: June 16th, 2015
-* Unity Plug-in Version: 2.0.12
-* iOS SDK Version: 2.5.1
-* Android SDK Version: 2.2.2
+* Modified: October 16th, 2015
+* Unity Plug-in Version: 2.1.0
+* iOS SDK Version: 2.6.0
+* Android SDK Version: 2.3.0
+
+###Please Review the [Change log](AdColony-Unity-SDK/CHANGELOG.md)
 
 ##Getting Started with AdColony Unity:
 First time users should review the [quick start guide](https://github.com/AdColony/AdColony-Unity-SDK/wiki).
@@ -10,30 +12,27 @@ Note for **Unity 5:**
 Locate the 'Platform Settings' on the file Assets/Plugins/iOS/UnityADC in the Unity inspector, add the `-fno-objc-arc` flag to the 'Compile flags'. This will resolve issues when building the Xcode project.
 
 ###AdColony Package Contains:
-* Plugins
+* Editor/
+  * `PostBuildProcessor.cs`
+* Plugins/
   * `AdColony.cs`
-  * Android
+  * Android/
     * `adcolony.jar`
     * `AndroidManifest.xml`
     * `unityadc.jar`
-  * iOS
+  * iOS/
     * `AdColony.framework`
     * `UnityADC.mm`
-* Scripts
-  * AdColonyAdManager
-    * `ADCAdManager.cs`
-    * `ADCVideoZone.cs`
-    * `ADCVideoZoneType.cs`
 
 ##To Download:
-The AdColony Unity SDK Package is [Available Here for download](https://github.com/AdColony/AdColony-Unity-SDK/raw/master/Packages/adcolony.unitypackage)
+The AdColony Unity SDK Package is [Available Here for download](AdColony-Unity-SDK/Packages/adcolony.unitypackage)
 
 ##To Install
 The AdColony Unity SDK Package is a standard .unitypackage that can be imported into your project.
 To review importing unity packages please see [this document](http://docs.unity3d.com/Manual/HOWTO-exportpackage.html).  You will need the contents of the "Plugins" folder but the use of the helper scripts in Scripts/AdColonyAdManager is optional.
 
 ##Sample Applications:
-Included are apps to serve as examples for AdColony integration, configuration and playing interstitial and V4VC ads.
+Included is a sample application to demonstrate adcolony integration, configuration, and playing ads. 
 
 ##Legal Requirements:
 By downloading the AdColony SDK, you are granted a limited, non-commercial license to use and review the SDK solely for evaluation purposes.  If you wish to integrate the SDK into any commercial applications, you must register an account with [AdColony](https://clients.adcolony.com/signup) and accept the terms and conditions on the AdColony website.
