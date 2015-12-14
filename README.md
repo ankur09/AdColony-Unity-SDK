@@ -1,6 +1,6 @@
 #AdColony Unity Plugin
-* Modified: October 16th, 2015
-* Unity Plug-in Version: 2.1.0
+* Modified: December 14th, 2015
+* Unity Plug-in Version: 2.1.1
 * iOS SDK Version: 2.6.0
 * Android SDK Version: 2.3.0
 

@@ -1,4 +1,7 @@
-##Change Log (2.1 -- 2015/10/16):
+##Change Log (2015/12/14):
+* Android - Fix an issue with Video Callbacks returning false after a video had been watched
+
+##Change Log (2015/10/16):
 * Updated AdColony iOS to 2.6.0
   * Adds iOS 9 Support
 * Updated AdColony Android to 2.3.0
