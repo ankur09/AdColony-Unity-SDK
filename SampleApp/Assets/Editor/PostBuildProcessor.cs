@@ -3,9 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using System.Collections;
-#if UNITY_IOS
 using UnityEditor.iOS.Xcode;
-#endif
 using System.IO;
 
 public class PostBuildProcessor : MonoBehaviour
@@ -21,15 +19,20 @@ public class PostBuildProcessor : MonoBehaviour
 	[PostProcessBuild]
 	public static void OnPostprocessBuild (BuildTarget buildTarget, string path)
 	{
+		//if (buildTarget != BuildTarget.iPhone) { // For Unity < 5
+		if (buildTarget != BuildTarget.iOS) {
+			Debug.LogWarning("Target is not iOS. AdColonyPostProcess will not run");
+			return;
+    }
+
 		#if !UNITY_CLOUD_BUILD
-		Debug.Log ("OnPostprocessBuild");
-		ProcessPostBuild (buildTarget, path);
+    Debug.Log ("OnPostprocessBuild");
+    ProcessPostBuild (buildTarget, path);
 		#endif
 	}
 
 	private static void ProcessPostBuild (BuildTarget buildTarget, string path)
 	{
-#if UNITY_IPHONE
     string projPath = path + "/Unity-iPhone.xcodeproj/project.pbxproj";
 
     PBXProject proj = new PBXProject();
@@ -59,7 +62,6 @@ public class PostBuildProcessor : MonoBehaviour
     proj.AddFrameworkToProject(target, "Webkit.framework", true);
 
     File.WriteAllText(projPath, proj.WriteToString());
-#endif
 	}
 }
 #endif

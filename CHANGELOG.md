@@ -1,3 +1,6 @@
+##Change Log (2016/01/19):
+* Updated AdColony iOS to 2.6.1
+
 ##Change Log (2015/12/14):
 * Android - Fix an issue with Video Callbacks returning false after a video had been watched
 
@@ -14,7 +17,7 @@ Special Notes
 ---
 We've removed two of the Sample Applications from our examples. Moving forward we're focusing on a single high quality Sample Application that will best demonstrate using the AdColony Unity Framework.
 
-We've also reintroduced PostBuildProcessor.cs for iOS. This works out of the box for Unity 5.X. This uses the (Unity Xcode API)[https://bitbucket.org/Unity-Technologies/xcodeapi]. For Unity 4.X it is still possible to take advantage of the Unity Xcode API. You'll need to follow the xcode api instructions for integrating with 4.X and Modify PostBuildProcessor.cs by removing the Unity5 preprocessor directives.
+We've also reintroduced PostBuildProcessor.cs for iOS. This works out of the box for Unity 5.X. This uses the [Unity Xcode API](https://bitbucket.org/Unity-Technologies/xcodeapi). For Unity 4.X it is still possible to take advantage of the Unity Xcode API. You'll need to follow the xcode api instructions for integrating with 4.X and Modify PostBuildProcessor.cs by removing the Unity5 preprocessor directives.
 
 For iOS 9 is import to review the [iOS 9 integration guide](https://github.com/AdColony/AdColony-iOS-SDK/wiki/iOS-9)
 

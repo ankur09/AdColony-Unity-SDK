@@ -49,7 +49,7 @@ public class AdColony : MonoBehaviour
 {
   // The single instance of the AdColony component
   private static AdColony instance;
-  public static string version = "2.1.0.2";
+  public static string version = "2.1.2.1";
 
   private static void ensureInstance()
   {
@@ -435,5 +435,3 @@ public class AdColony : MonoBehaviour
 #endif
 
 }
-
-
