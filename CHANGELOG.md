@@ -1,3 +1,6 @@
+##Change Log (2016/03/25):
+* Updated AdColony Android to 2.3.4
+
 ##Change Log (2016/01/19):
 * Updated AdColony iOS to 2.6.1
 
