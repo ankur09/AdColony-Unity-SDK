@@ -5,19 +5,8 @@
 //
 //  Copyright 2010 Jirbo, Inc.  All rights reserved.
 //
-//  ---------------------------------------------------------------------------
-//
-//  * Instructions *
-//
-//  Copy this file into your Unity project's Assets/Plugins/iOS folder.
-//
-//  Refer to the header comment in AdColony.cs for further instructions.
-//
 //=============================================================================
-
 #import <AdColony/AdColony.h>
-
-void UnityPause(bool pause);
 
 
 @interface UnityADCIOSDelegate : NSObject<AdColonyDelegate,AdColonyAdDelegate>

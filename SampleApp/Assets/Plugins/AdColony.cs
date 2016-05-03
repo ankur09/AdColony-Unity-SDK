@@ -21,44 +21,39 @@ public class AdColonyAd {
   public string toString() {
     return "AdColonyAdInfo- Shown:" + shown + ", IAPEnabled: " + iapEnabled + ", productID:" + productID + ", IAPEngagementType: " + iapEngagementType;
   }
+
   public AdColonyAd(string[] split_args) {
     this.shown = split_args[0].Equals("true");
     this.iapEnabled = split_args[1].Equals("true");
-    switch (split_args[2]) {
-      case "NONE":
-        this.iapEngagementType = IAPEngagementType.NONE;
-        break;
-      case "OVERLAY":
-        this.iapEngagementType = IAPEngagementType.OVERLAY;
-        break;
-      case "END_CARD":
-        this.iapEngagementType = IAPEngagementType.END_CARD;
-        break;
-      case "AUTOMATIC":
-        this.iapEngagementType = IAPEngagementType.AUTOMATIC;
-        break;
-      default:
-        this.iapEngagementType = IAPEngagementType.NONE;
-        break;
+    string type = split_args[2];
+
+    if(type == "END_CARD") {
+      this.iapEngagementType = IAPEngagementType.END_CARD;
+    } else if(type == "OVERLAY") {
+      this.iapEngagementType = IAPEngagementType.OVERLAY;
+    } else if(type == "AUTOMATIC") {
+      this.iapEngagementType = IAPEngagementType.AUTOMATIC;
+    } else {
+      this.iapEngagementType = IAPEngagementType.NONE;
     }
+
     this.productID = split_args[3];
   }
 }
+
 
 public class AdColony : MonoBehaviour
 {
   // The single instance of the AdColony component
   private static AdColony instance;
-  public static string version = "2.1.3.1";
+  public static string version = "2.1.4.1";
 
+  //We need this so that native code has an object to send messages to
   private static void ensureInstance()
   {
-    if(instance == null)
-    {
-      Debug.LogWarning("AdColony Unity version -- " + AdColony.version);
+    if(instance == null) {
       instance = FindObjectOfType( typeof(AdColony) ) as AdColony;
-      if(instance == null)
-      {
+      if(instance == null) {
         instance = new GameObject("AdColony").AddComponent<AdColony>();
       }
     }
@@ -82,29 +77,12 @@ public class AdColony : MonoBehaviour
   public static AdAvailabilityChangeDelegate  OnAdAvailabilityChange;
 
   static bool configured;
-  bool  was_paused;
 
   void Awake() {
     // Set the name to allow UnitySendMessage to find this object.
     name = "AdColony";
     // Make sure this GameObject persists across scenes
     DontDestroyOnLoad(transform.gameObject);
-  }
-
-  void OnApplicationPause() {
-    was_paused = true;
-#if UNITY_ANDROID && !UNITY_EDITOR
-    AndroidPause();
-#endif
-  }
-
-  void Update() {
-    if (was_paused) {
-      was_paused = false;
-#if UNITY_ANDROID && !UNITY_EDITOR
-      AndroidResume();
-#endif
-    }
   }
 
   public void OnAdColonyVideoStarted( string args ) {
@@ -147,11 +125,11 @@ public class AdColony : MonoBehaviour
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
   static public void Configure( string app_version, string app_id, params string[] zone_ids )
   {
-    if (configured) return;
+    if (!configured) {
+      Debug.LogWarning( "AdColony has been stubbed out." );
+      configured = true;
+    }
     ensureInstance();
-
-    Debug.LogWarning( "AdColony has been stubbed out." );
-    configured = true;
   }
 
   static public void   SetCustomID( string custom_id ) { }
@@ -174,7 +152,7 @@ public class AdColony : MonoBehaviour
   static public void   OfferV4VC( bool popup_result ) { }
   static public void   OfferV4VC( bool popup_result, string zone_id ) { }
   static public string StatusForZone( string zone_id ) { return "undefined"; }
-  static public void NotifyIAPComplete( string product_id, string trans_id, string currency_code, double price, int quantity) { return; }
+  static public void NotifyIAPComplete( string product_id, string trans_id, string currency_code, double price, int quantity) { }
 
 #elif UNITY_IPHONE && !UNITY_EDITOR
   static public void Configure( string app_version, string app_id, params string[] zone_ids ) {
@@ -241,8 +219,6 @@ public class AdColony : MonoBehaviour
   static AndroidJavaClass class_UnityPlayer;
   static IntPtr class_UnityADC           = IntPtr.Zero;
   static IntPtr method_configure         = IntPtr.Zero;
-  static IntPtr method_pause             = IntPtr.Zero;
-  static IntPtr method_resume            = IntPtr.Zero;
   static IntPtr method_setCustomID       = IntPtr.Zero;
   static IntPtr method_getCustomID       = IntPtr.Zero;
   static IntPtr method_isVideoAvailable  = IntPtr.Zero;
@@ -280,8 +256,6 @@ public class AdColony : MonoBehaviour
       method_configure = AndroidJNI.GetStaticMethodID( class_UnityADC, "configure",
           "(Landroid/app/Activity;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V" );
 
-      method_pause = AndroidJNI.GetStaticMethodID( class_UnityADC, "pause", "(Landroid/app/Activity;)V" );
-      method_resume = AndroidJNI.GetStaticMethodID( class_UnityADC, "resume", "(Landroid/app/Activity;)V" );
       method_setCustomID = AndroidJNI.GetStaticMethodID( class_UnityADC, "setCustomID", "(Ljava/lang/String;)V" );
       method_getCustomID = AndroidJNI.GetStaticMethodID( class_UnityADC, "getCustomID", "()Ljava/lang/String;" );
       method_isVideoAvailable = AndroidJNI.GetStaticMethodID( class_UnityADC, "isVideoAvailable", "(Ljava/lang/String;)Z" );
@@ -327,24 +301,10 @@ public class AdColony : MonoBehaviour
     configured = true;
   }
 
-  public static void AndroidResume() {
-    var j_activity = class_UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-    jvalue[] args = new jvalue[1];
-    args[0].l = j_activity.GetRawObject();
-
-    AndroidJNI.CallStaticVoidMethod( class_UnityADC, method_resume, args );
-  }
-
-  public static void AndroidPause() {
-    var j_activity = class_UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-    jvalue[] args = new jvalue[1];
-    args[0].l = j_activity.GetRawObject();
-
-    AndroidJNI.CallStaticVoidMethod( class_UnityADC, method_pause, args );
-  }
-
   public static void SetCustomID( string custom_id ) {
-    if(!adr_initialized) AndroidInitializePlugin();
+    if(!adr_initialized){
+      AndroidInitializePlugin();
+    }
     jvalue[] args = new jvalue[1];
     args[0].l = AndroidJNI.NewStringUTF( custom_id );
     AndroidJNI.CallStaticVoidMethod( class_UnityADC, method_setCustomID, args );
