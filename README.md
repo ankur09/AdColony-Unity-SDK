@@ -8,8 +8,7 @@
 
 ##Getting Started with AdColony Unity:
 First time users should review the [quick start guide](https://github.com/AdColony/AdColony-Unity-SDK/wiki).
-Note for **Unity 5:**
-Locate the 'Platform Settings' on the file Assets/Plugins/iOS/UnityADC in the Unity inspector, add the `-fno-objc-arc` flag to the 'Compile flags'. This will resolve issues when building the Xcode project.
+
 
 ###AdColony Package Contains:
 * Editor/
